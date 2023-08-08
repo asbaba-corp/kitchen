@@ -10,5 +10,6 @@ jobs:
     uses: asbaba-corp/pipelines/.github/workflows/terraform-plan.yml@main
     secrets: inherit   
   apply:
-    uses: asbaba-corp/pipelines/.github/workflows/terraform-plan.yml@main
+    uses: asbaba-corp/pipelines/.github/workflows/terraform-apply.yml@main
+    needs: [plan]
     secrets: inherit   
