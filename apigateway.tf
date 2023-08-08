@@ -42,10 +42,6 @@ module "api_gateway" {
     }
  
   }
-
-  tags = {
-    Name = "http-apigateway"
-  }
 }
 
 data "aws_lambda_functions" "all" {}
