@@ -1,0 +1,14 @@
+name: Provision infra
+ 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  plan:
+    uses: asbaba-corp/pipelines/.github/workflows/terraform-plan.yml@main
+    secrets: inherit   
+  apply:
+    uses: asbaba-corp/pipelines/.github/workflows/terraform-plan.yml@main
+    secrets: inherit   
