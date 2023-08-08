@@ -22,6 +22,7 @@ provider "aws" {
 }
 module "api_gateway" {
   source = "terraform-aws-modules/apigateway-v2/aws"
+  create_api_domain_name           = false  # to control creation of API Gateway Domain Name
 
   name          = "cataprato-http"
   description   = "My awesome HTTP API Gateway"
