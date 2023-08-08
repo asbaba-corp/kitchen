@@ -39,7 +39,7 @@ module "api_gateway" {
   default_stage_access_log_format          = "$context.identity.sourceIp - - [$context.requestTime] \"$context.httpMethod $context.routeKey $context.protocol\" $context.status $context.responseLength $context.requestId $context.integrationErrorMessage"
 
   # Routes and integrations
-  for_each = data.aws_lambda_functions.all.function_arns
+  for_each = toset(data.aws_lambda_functions.all.function_arns)
 
   integrations = {
 
