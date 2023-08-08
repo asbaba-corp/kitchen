@@ -13,9 +13,16 @@ terraform {
     }
   }
 }
-
+provider "aws" {
+  region = "us-east-1"
+  skip_metadata_api_check     = true
+  skip_region_validation      = true
+  skip_credentials_validation = true
+  skip_requesting_account_id  = true
+}
 module "api_gateway" {
   source = "terraform-aws-modules/apigateway-v2/aws"
+  create_api_domain_name           = false  # to control creation of API Gateway Domain Name
 
   name          = "cataprato-http"
   description   = "My awesome HTTP API Gateway"
@@ -33,7 +40,7 @@ module "api_gateway" {
   default_stage_access_log_format          = "$context.identity.sourceIp - - [$context.requestTime] \"$context.httpMethod $context.routeKey $context.protocol\" $context.status $context.responseLength $context.requestId $context.integrationErrorMessage"
 
   # Routes and integrations
-  for_each = data.aws_lambda_functions.all.function_arns
+  for_each = toset(data.aws_lambda_functions.all.function_arns)
 
   integrations = {
 
@@ -41,10 +48,6 @@ module "api_gateway" {
       lambda_arn = each.key
     }
  
-  }
-
-  tags = {
-    Name = "http-apigateway"
   }
 }
 
