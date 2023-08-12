@@ -1,6 +1,6 @@
 openapi: '3.0.0'
 info:
-  title: cataprato_auth
+  title: Cataprato_http
   version: v1
 paths:
   /register:
