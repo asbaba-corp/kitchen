@@ -201,7 +201,7 @@ paths:
         uri: "${core}"
         passthroughBehavior: "when_no_match"
         httpMethod: "GET"
-         type: "aws_proxy"
+        type: "aws_proxy"
 components:
   schemas:
     CreateUser:
