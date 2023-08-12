@@ -47,7 +47,7 @@ module "api_gateway" {
   }
   # Routes and integrations
 
-  body = templatefile("apis.yaml", {
+  body = templatefile("apis.yml", {
       auth = data.aws_lambda_function.auth.arn,
       core = data.aws_lambda_function.core.arn
     })
