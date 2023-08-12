@@ -56,7 +56,7 @@ paths:
         uri: "${auth}"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
-         type: "aws_proxy"
+        type: "aws_proxy"
   /health-check:
     get:
       operationId: AppController_healthCheck
