@@ -27,7 +27,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-amazon-apigateway-integration:
         uri: "${auth}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "POST"
         type: "aws_proxy"
   /auth:
@@ -54,7 +54,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-amazon-apigateway-integration:
         uri: "${auth}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "POST"
         type: "aws_proxy"
   /health-check:
@@ -66,7 +66,7 @@ paths:
           description: ''
       x-amazon-apigateway-integration:
         uri: "${core}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "GET"
         type: "aws_proxy"
   /ingredients:
@@ -80,7 +80,7 @@ paths:
         - ingredients
       x-amazon-apigateway-integration:
         uri: "${core}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "GET"
         type: "aws_proxy"
     post:
@@ -98,7 +98,7 @@ paths:
       tags: *ref_0
       x-amazon-apigateway-integration:
         uri: "${core}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "POST"
         type: "aws_proxy"
   /ingredients/{id}:
@@ -116,7 +116,7 @@ paths:
       tags: *ref_0
       x-amazon-apigateway-integration:
         uri: "${core}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "GET"
         type: "aws_proxy"
   /recipes:
@@ -130,7 +130,7 @@ paths:
         - recipes
       x-amazon-apigateway-integration:
         uri: "${core}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "GET"
         type: "aws_proxy"
     post:
@@ -148,7 +148,7 @@ paths:
       tags: *ref_1
       x-amazon-apigateway-integration:
         uri: "${core}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "POST"
         type: "aws_proxy"
   /recipes/{id}:
@@ -166,7 +166,7 @@ paths:
       tags: *ref_1
       x-amazon-apigateway-integration:
         uri: "${core}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "GET"
         type: "aws_proxy"
   /search-recipe:
@@ -199,7 +199,7 @@ paths:
         - search-recipe
       x-amazon-apigateway-integration:
         uri: "${core}"
-        passthroughBehavior: "when_no_match"
+         
         httpMethod: "GET"
         type: "aws_proxy"
 components:

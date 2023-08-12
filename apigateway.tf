@@ -45,7 +45,15 @@ module "api_gateway" {
     throttling_burst_limit   = 100
     throttling_rate_limit    = 100
   }
+    integrations = {
 
+      "$default" = {
+      lambda_arn = module.lambda_function.lambda_function_arn
+      tls_config = jsonencode({
+        server_name_to_verify = local.domain_name
+      })
+
+    }
   body = templatefile("apis.yml", {
       auth = data.aws_lambda_function.auth.invoke_arn,
       core = data.aws_lambda_function.core.invoke_arn
@@ -54,6 +62,7 @@ module "api_gateway" {
    tags = {
     Deployment = "terraform"
   }
+}
 }
 
 data "aws_lambda_function" "auth" {
