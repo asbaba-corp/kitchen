@@ -45,11 +45,10 @@ module "api_gateway" {
     throttling_burst_limit   = 100
     throttling_rate_limit    = 100
   }
-  # Routes and integrations
 
   body = templatefile("apis.yml", {
-      auth = data.aws_lambda_function.auth.arn,
-      core = data.aws_lambda_function.core.arn
+      auth = data.aws_lambda_function.auth.invoke_arn,
+      core = data.aws_lambda_function.core.invoke_arn
     })
  
    tags = {
