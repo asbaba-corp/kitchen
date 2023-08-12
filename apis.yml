@@ -68,7 +68,7 @@ paths:
         uri: "${core}"
         passthroughBehavior: "when_no_match"
         httpMethod: "GET"
-         type: "aws_proxy"
+        type: "aws_proxy"
   /ingredients:
     get:
       operationId: IngredientsController_findAll
@@ -82,7 +82,7 @@ paths:
         uri: "${core}"
         passthroughBehavior: "when_no_match"
         httpMethod: "GET"
-         type: "aws_proxy"
+        type: "aws_proxy"
     post:
       operationId: IngredientsController_create
       parameters: []
@@ -100,7 +100,7 @@ paths:
         uri: "${core}"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
-         type: "aws_proxy"
+        type: "aws_proxy"
   /ingredients/{id}:
     get:
       operationId: IngredientsController_findOne
@@ -118,7 +118,7 @@ paths:
         uri: "${core}"
         passthroughBehavior: "when_no_match"
         httpMethod: "GET"
-         type: "aws_proxy"
+        type: "aws_proxy"
   /recipes:
     get:
       operationId: RecipeController_findAll
@@ -132,7 +132,7 @@ paths:
         uri: "${core}"
         passthroughBehavior: "when_no_match"
         httpMethod: "GET"
-         type: "aws_proxy"
+        type: "aws_proxy"
     post:
       operationId: RecipeController_create
       parameters: []
@@ -150,7 +150,7 @@ paths:
         uri: "${core}"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
-         type: "aws_proxy"
+        type: "aws_proxy"
   /recipes/{id}:
     get:
       operationId: RecipeController_findOne
@@ -168,7 +168,7 @@ paths:
         uri: "${core}"
         passthroughBehavior: "when_no_match"
         httpMethod: "GET"
-         type: "aws_proxy"
+        type: "aws_proxy"
   /search-recipe:
     get:
       operationId: SearchRecipeController_getRecipeByIngredients
