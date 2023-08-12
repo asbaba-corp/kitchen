@@ -67,7 +67,7 @@ paths:
       x-amazon-apigateway-integration:
         uri: "${core}"
          
-        httpMethod: "GET"
+         httpMethod: "POST"
         type: "aws_proxy"
   /ingredients:
     get:
@@ -81,7 +81,7 @@ paths:
       x-amazon-apigateway-integration:
         uri: "${core}"
          
-        httpMethod: "GET"
+         httpMethod: "POST"
         type: "aws_proxy"
     post:
       operationId: IngredientsController_create
@@ -117,7 +117,7 @@ paths:
       x-amazon-apigateway-integration:
         uri: "${core}"
          
-        httpMethod: "GET"
+         httpMethod: "POST"
         type: "aws_proxy"
   /recipes:
     get:
@@ -131,7 +131,7 @@ paths:
       x-amazon-apigateway-integration:
         uri: "${core}"
          
-        httpMethod: "GET"
+         httpMethod: "POST"
         type: "aws_proxy"
     post:
       operationId: RecipeController_create
@@ -167,7 +167,7 @@ paths:
       x-amazon-apigateway-integration:
         uri: "${core}"
          
-        httpMethod: "GET"
+         httpMethod: "POST"
         type: "aws_proxy"
   /search-recipe:
     get:
@@ -200,7 +200,7 @@ paths:
       x-amazon-apigateway-integration:
         uri: "${core}"
          
-        httpMethod: "GET"
+         httpMethod: "POST"
         type: "aws_proxy"
 components:
   schemas:
