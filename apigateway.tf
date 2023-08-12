@@ -25,7 +25,7 @@ module "api_gateway" {
   create_api_domain_name           = false  # to control creation of API Gateway Domain Name
 
   name          = "cataprato-http"
-  description   = "My awesome HTTP API Gateway"
+  description   = "Cataprato asbaba corporations HTTP"
   protocol_type = "HTTP"
 
   cors_configuration = {
@@ -39,19 +39,33 @@ module "api_gateway" {
   default_stage_access_log_destination_arn = aws_cloudwatch_log_group.logs.arn
   default_stage_access_log_format          = "$context.identity.sourceIp - - [$context.requestTime] \"$context.httpMethod $context.routeKey $context.protocol\" $context.status $context.responseLength $context.requestId $context.integrationErrorMessage"
 
+
+   default_route_settings = {
+    detailed_metrics_enabled = true
+    throttling_burst_limit   = 100
+    throttling_rate_limit    = 100
+  }
   # Routes and integrations
-  for_each = toset(data.aws_lambda_functions.all.function_arns)
 
-  integrations = {
-
-    "$default" = {
-      lambda_arn = each.key
-    }
+  body = templatefile("apis.yaml", {
+      auth = data.aws_lambda_function.auth.arn,
+      core = data.aws_lambda_function.core.arn
+    })
  
+   tags = {
+    Deployment = "terraform"
   }
 }
 
-data "aws_lambda_functions" "all" {}
+data "aws_lambda_function" "auth" {
+  function_name     = "cataprato-auth-lambda"
+
+}
+
+data "aws_lambda_function" "core" {
+  function_name     = "cataprato-core-lambda"
+
+}
 
 resource "aws_cloudwatch_log_group" "logs" {
   name = "apigateway-logs"

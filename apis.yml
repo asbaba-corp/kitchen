@@ -1,0 +1,289 @@
+openapi: '3.1.0'
+info:
+  title: cataprato_auth
+  version: v1
+paths:
+  /register:
+    post:
+      summary: Register User
+      operationId: register_user_register_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.auth.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+  /auth:
+    post:
+      summary: Login
+      operationId: login_auth_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.auth.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+         type: "aws_proxy"
+  /health-check:
+    get:
+      operationId: AppController_healthCheck
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.core.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "GET"
+         type: "aws_proxy"
+  /ingredients:
+    get:
+      operationId: IngredientsController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: &ref_0
+        - ingredients
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.core.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "GET"
+         type: "aws_proxy"
+    post:
+      operationId: IngredientsController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIngredientDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_0
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.core.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+         type: "aws_proxy"
+  /ingredients/{id}:
+    get:
+      operationId: IngredientsController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.core.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "GET"
+         type: "aws_proxy"
+  /recipes:
+    get:
+      operationId: RecipeController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: &ref_1
+        - recipes
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.core.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "GET"
+         type: "aws_proxy"
+    post:
+      operationId: RecipeController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecipeDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_1
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.core.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+         type: "aws_proxy"
+  /recipes/{id}:
+    get:
+      operationId: RecipeController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.core.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "GET"
+         type: "aws_proxy"
+  /search-recipe:
+    get:
+      operationId: SearchRecipeController_getRecipeByIngredients
+      parameters:
+        - name: ingredients
+          required: true
+          in: query
+          description: the IDs of the ingredients to search
+          schema:
+            type: string
+        - description: the IDs of the ingredients to search
+          name: ingredients
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filters
+          required: false
+          description: Filters to apply in the search
+          allOf:
+            - $ref: '#/components/schemas/SearchRecipesFilters'
+          in: query
+          schema: {}
+      responses:
+        '200':
+          description: ''
+      tags:
+        - search-recipe
+      x-amazon-apigateway-integration:
+        uri: "${data.aws_lambda_function.core.arn}"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "GET"
+         type: "aws_proxy"
+components:
+  schemas:
+    CreateUser:
+      properties:
+        email:
+          type: string
+          title: Email
+        password:
+          type: string
+          title: Password
+      type: object
+      required:
+        - email
+        - password
+      title: CreateUser
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
+    CreateIngredientDto:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+            - onion
+            - garlic
+            - carrot
+          description: The name of the Ingredient
+      required:
+        - name
+    CreateRecipeDto:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+            - American Pie
+            - Detroit Style Pizza
+            - Fish and tip's
+          description: The name of the Recipe
+        ingredients:
+          type: string
+          examples:
+            - - random-uuid
+              - random-uuid
+          description: The IDs of Ingredients
+        creator:
+          type: string
+          example:
+            - random-uuid
+          description: the ID of the creator of that recipe
+      required:
+        - name
+        - ingredients
+        - creator
+    SearchRecipesFilters:
+      type: object
+      properties: {}
