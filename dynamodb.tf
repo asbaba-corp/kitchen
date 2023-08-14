@@ -9,14 +9,6 @@ locals{
           type = "S"
         },
         {
-          name = "email"
-          type = "S"
-        },
-        {
-          name = "password"
-          type = "S"
-        },
-        {
           name = "created_at"
           type = "S"
         }
@@ -28,18 +20,6 @@ locals{
       attributes = [
         {
           name = "id"
-          type = "S"
-        },
-        {
-          name = "creator_id"
-          type = "S"
-        },
-        {
-          name = "ingredients"
-          type = "S"
-        },
-        {
-          name = "name"
           type = "S"
         },
          {
