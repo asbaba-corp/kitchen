@@ -36,7 +36,7 @@ locals{
         },
         {
           name = "ingredients"
-          type = "SS"
+          type = "S"
         },
         {
           name = "name"
@@ -50,7 +50,7 @@ locals{
     },
     Ingredients = {
       hash_key    = "id"
-      range_key   = "created_at"
+      range_key   = "name"
       attributes = [
         {
           name = "id"
