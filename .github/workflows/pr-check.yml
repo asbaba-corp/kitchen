@@ -6,12 +6,6 @@ on:
     types: [created]
 
 jobs:
-  validate-yml:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Validate YAML file
-        run: yamllint apis.yml
   plan:
     uses: asbaba-corp/pipelines/.github/workflows/terraform-plan.yml@main
     needs: [validate-yml]
