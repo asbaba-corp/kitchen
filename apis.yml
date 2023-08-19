@@ -27,7 +27,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-amazon-apigateway-integration:
         payloadFormatVersion: "2.0"
-        uri: "${auth}"
+        uri: "${authentication}"
         httpMethod: "POST"
         type: "aws_proxy"
   /auth:
@@ -54,7 +54,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
       x-amazon-apigateway-integration:
         payloadFormatVersion: "2.0"
-        uri: "${auth}"
+        uri: "${authentication}"
         httpMethod: "POST"
         type: "aws_proxy"
   /health-check:
@@ -73,6 +73,8 @@ paths:
     get:
       operationId: IngredientsController_findAll
       parameters: []
+      security:
+      - lambda-auth: []
       responses:
         '200':
           description: ''
@@ -101,6 +103,8 @@ paths:
   /ingredients/{id}:
     get:
       operationId: IngredientsController_findOne
+      security:
+      - lambda-auth: []
       parameters:
         - name: id
           required: true
@@ -120,6 +124,8 @@ paths:
     get:
       operationId: RecipeController_findAll
       parameters: []
+      security:
+      - lambda-auth: []
       responses:
         '200':
           description: ''
@@ -148,6 +154,8 @@ paths:
   /recipes/{id}:
     get:
       operationId: RecipeController_findOne
+      security:
+      - lambda-auth: []
       parameters:
         - name: id
           required: true
@@ -165,6 +173,8 @@ paths:
   /search-recipe:
     get:
       operationId: SearchRecipeController_getRecipeByIngredients
+      security:
+      - lambda-auth: []
       parameters:
         - name: ingredients
           required: true
@@ -186,6 +196,18 @@ paths:
         httpMethod: "POST"
         type: "aws_proxy"
 components:
+  securitySchemes:
+    lambda-auth:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+      x-amazon-apigateway-authorizer:
+        identitySource: "$request.header.Authorization"
+        authorizerUri: "${authorizer}"
+        authorizerPayloadFormatVersion: "2.0"
+        authorizerResultTtlInSeconds: 0
+        type: "request"
+        enableSimpleResponses: false
   schemas:
     CreateUser:
       properties:

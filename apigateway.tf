@@ -28,8 +28,9 @@ module "api_gateway" {
 
    
   body = templatefile("apis.yml", {
-      auth = data.aws_lambda_function.auth.invoke_arn,
-      core = data.aws_lambda_function.core.invoke_arn
+      authentication = data.aws_lambda_function.authentication.invoke_arn,
+      core = data.aws_lambda_function.core.invoke_arn,
+      authorizer = data.aws_lambda_function.authorizer.invoke_arn
     })
  
    tags = {
@@ -38,14 +39,17 @@ module "api_gateway" {
 }
 
 
-data "aws_lambda_function" "auth" {
-  function_name     = "cataprato-auth-lambda"
+data "aws_lambda_function" "authentication" {
+  function_name     = "authentication"
 
 }
 
 data "aws_lambda_function" "core" {
-  function_name     = "cataprato-core-lambda"
+  function_name     = "core"
+}
 
+data "aws_lambda_function" "authorizer" {
+  function_name     = "authorizer"
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
