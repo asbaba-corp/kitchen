@@ -30,7 +30,7 @@ module "api_gateway" {
   body = templatefile("apis.yml", {
       authentication = data.aws_lambda_function.authentication.invoke_arn,
       core = data.aws_lambda_function.core.invoke_arn,
-      authorizer = data.aws_lambda_function.authorizer.invoke_arn
+      authorizer = data.aws_lambda_function.authorization.invoke_arn
     })
  
    tags = {
@@ -48,8 +48,8 @@ data "aws_lambda_function" "core" {
   function_name     = "core"
 }
 
-data "aws_lambda_function" "authorizer" {
-  function_name     = "authorizer"
+data "aws_lambda_function" "authorization" {
+  function_name     = "authorization"
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
