@@ -8,5 +8,4 @@ on:
 jobs:
   plan:
     uses: asbaba-corp/pipelines/.github/workflows/terraform-plan.yml@main
-    needs: [validate-yml]
     secrets: inherit   
