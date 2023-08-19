@@ -30,7 +30,7 @@ paths:
         uri: "${authentication}"
         httpMethod: "POST"
         type: "aws_proxy"
-  /auth:
+  /login:
     post:
       summary: Login
       operationId: login_auth_post
