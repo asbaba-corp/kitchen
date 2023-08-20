@@ -1,6 +1,6 @@
 module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.0.0" 
+  version = "3.14.1" 
 
   bucket = "balcony-frontend"
   acl    = "public-read"
