@@ -74,7 +74,7 @@ paths:
       operationId: IngredientsController_findAll
       parameters: []
       security:
-      - lambda-auth: []
+      - lambda-authorization: []
       responses:
         '200':
           description: ''
@@ -104,7 +104,7 @@ paths:
     get:
       operationId: IngredientsController_findOne
       security:
-      - lambda-auth: []
+      - lambda-authorization: []
       parameters:
         - name: id
           required: true
@@ -125,7 +125,7 @@ paths:
       operationId: RecipeController_findAll
       parameters: []
       security:
-      - lambda-auth: []
+      - lambda-authorization: []
       responses:
         '200':
           description: ''
@@ -155,7 +155,7 @@ paths:
     get:
       operationId: RecipeController_findOne
       security:
-      - lambda-auth: []
+      - lambda-authorization: []
       parameters:
         - name: id
           required: true
@@ -174,7 +174,7 @@ paths:
     get:
       operationId: SearchRecipeController_getRecipeByIngredients
       security:
-      - lambda-auth: []
+      - lambda-authorization: []
       parameters:
         - name: ingredients
           required: true
@@ -197,7 +197,7 @@ paths:
         type: "aws_proxy"
 components:
   securitySchemes:
-    lambda-auth:
+    lambda-authorization:
       type: "apiKey"
       name: "Authorization"
       in: "header"
@@ -207,7 +207,7 @@ components:
         authorizerPayloadFormatVersion: "2.0"
         authorizerResultTtlInSeconds: 0
         type: "request"
-        enableSimpleResponses: false
+        enableSimpleResponses: true
   schemas:
     CreateUser:
       properties:
