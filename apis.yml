@@ -86,6 +86,8 @@ paths:
     post:
       operationId: IngredientsController_create
       parameters: []
+      security:
+      - lambda-authorization: []
       requestBody:
         required: true
         content:
@@ -137,6 +139,8 @@ paths:
     post:
       operationId: RecipeController_create
       parameters: []
+      security:
+      - lambda-authorization: []
       requestBody:
         required: true
         content:
