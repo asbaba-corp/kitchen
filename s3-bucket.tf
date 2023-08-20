@@ -9,9 +9,6 @@ module "s3_bucket" {
     index_document = "index.html"
     error_document = "error.html"
   }
-   block_public_acls       = false
-   block_public_policy     = false
-   restrict_public_buckets = false
    policy = <<POLICY
 {
   "Version": "2012-10-17",
