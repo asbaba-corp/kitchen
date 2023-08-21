@@ -16,7 +16,7 @@ module "api_gateway" {
 
   # Access logs
   default_stage_access_log_destination_arn = aws_cloudwatch_log_group.logs.arn
-  default_stage_access_log_format          = "$context.identity.sourceIp - - [$context.requestTime] \"$context.httpMethod $context.routeKey $context.protocol\" $context.status $context.responseLength $context.requestId $context.integrationErrorMessage"
+  default_stage_access_log_format          = "$context.identity.sourceIp - - [$context.requestTime] \"$context.httpMethod $context.routeKey $context.protocol\" $context.status $context.responseLength $context.requestId $context.integrationErrorMessage $context.authorizer.error"
 
 
    default_route_settings = {

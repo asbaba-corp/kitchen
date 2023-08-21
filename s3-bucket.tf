@@ -1,6 +1,6 @@
 module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.0.0" 
+  version = "3.14.1" 
 
   bucket = "balcony-frontend"
   acl    = "public-read"
@@ -9,6 +9,9 @@ module "s3_bucket" {
     index_document = "index.html"
     error_document = "error.html"
   }
+  expected_bucket_owner = data.aws_caller_identity.current.account_id
+  control_object_ownership = true
+  object_ownership         = "BucketOwnerPreferred"
    policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -24,3 +27,5 @@ module "s3_bucket" {
 }
 POLICY
 }
+
+data "aws_caller_identity" "current" {}
