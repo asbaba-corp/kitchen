@@ -17,6 +17,8 @@ module "s3_bucket" {
   ignore_public_acls      = false
   restrict_public_buckets = false
 
+  attach_policy           = true
+
    policy = <<POLICY
 {
   "Version": "2012-10-17",
