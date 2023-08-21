@@ -3,15 +3,20 @@ module "s3_bucket" {
   version = "3.14.1" 
 
   bucket = "balcony-frontend"
-  acl    = "public-read"
-
   website = {
     index_document = "index.html"
     error_document = "error.html"
   }
+
   expected_bucket_owner = data.aws_caller_identity.current.account_id
   control_object_ownership = true
   object_ownership         = "BucketOwnerPreferred"
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+
    policy = <<POLICY
 {
   "Version": "2012-10-17",
